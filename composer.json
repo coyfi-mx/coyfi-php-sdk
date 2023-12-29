@@ -1,0 +1,40 @@
+{
+    "name": "coyfi-mx/coyfi-sdk",
+    "description": "Coyfi SDK",
+    "keywords": [
+        "coyfi",
+        "cfdi",
+        "sat",
+        "sdk"
+    ],
+    "homepage": "https://github.com/coyfi-mx/coyfi-php-sdk",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "GussRw",
+            "homepage": "https://github.com/gussrw"
+        }
+    ],
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.7",
+        "guzzlehttp/guzzle": "^7.8",
+        "vlucas/phpdotenv": "^5.6",
+        "phpunit/phpunit": "^10",
+        "tightenco/duster": "^2.7",
+        "symfony/var-dumper": "^6.4",
+        "ramsey/uuid": "^4.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Coyfi\\Cfdi\\": "src/"
+        },
+        "files": [
+            "./helpers/env.php",
+            "./helpers/config.php"
+        ]
+    }
+}
