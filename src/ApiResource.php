@@ -1,0 +1,73 @@
+<?php
+
+namespace Coyfi\Cfdi;
+
+use Coyfi\Cfdi\Exceptions\APIException;
+use Coyfi\Cfdi\Exceptions\NoKeyProvidedException;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
+
+class ApiResource
+{
+    private static $instances = [];
+
+    public $client;
+
+    public function __construct()
+    {
+        if (Coyfi::isProduction()) {
+            $base_uri = 'http://coyfi-backend.house/api/';
+        } else {
+            $base_uri = 'http://coyfi-backend.house/api/';
+        }
+
+        if (! Coyfi::getKey() || ! Coyfi::getSecret()) {
+            throw new NoKeyProvidedException;
+        }
+        $this->client = new Client([
+            'base_uri' => $base_uri,
+            'auth' => [Coyfi::getKey(), Coyfi::getSecret()],
+            'timeout' => 30.0,
+        ]
+        );
+    }
+
+    /**
+     * @throws APIException
+     */
+    public static function post($uri, $json)
+    {
+        $apiResource = ApiResource::getInstance();
+        try {
+            $response = $apiResource->client->request(
+                'POST',
+                $uri,
+                [
+                    'headers' => [
+                        'Content-Type' => 'application/json',
+                    ],
+                    'json' => $json,
+                ]
+            );
+        } catch (ClientException $exception) {
+            throw new APIException($exception->getResponse(), $exception->getRequest());
+        }
+
+        return $apiResource->processResponse($response);
+    }
+
+    private static function getInstance(): ApiResource
+    {
+        $cls = static::class;
+        if (! isset(self::$instances[$cls])) {
+            self::$instances[$cls] = new static;
+        }
+
+        return self::$instances[$cls];
+    }
+
+    private function processResponse($response)
+    {
+        return json_decode($response->getBody()->getContents(), true);
+    }
+}
