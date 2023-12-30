@@ -23,7 +23,7 @@ abstract class CoyfiObject
         return $object;
     }
 
-    public function fill($attributes): void
+    public function fill(array $attributes): void
     {
         foreach ($attributes as $key => $value) {
             if (property_exists($this, $key)) {
