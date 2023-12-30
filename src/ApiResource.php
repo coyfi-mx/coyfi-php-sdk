@@ -35,7 +35,7 @@ class ApiResource
     /**
      * @throws APIException
      */
-    public static function post($uri, $json)
+    public static function post($uri, $json): array
     {
         $apiResource = ApiResource::getInstance();
         try {
@@ -45,15 +45,18 @@ class ApiResource
                 [
                     'headers' => [
                         'Content-Type' => 'application/json',
+                        'X-Requested-With' => 'XMLHttpRequest',
                     ],
                     'json' => $json,
                 ]
             );
+
+            return $apiResource->processResponse($response);
+
         } catch (ClientException $exception) {
             throw new APIException($exception->getResponse(), $exception->getRequest());
         }
 
-        return $apiResource->processResponse($response);
     }
 
     private static function getInstance(): ApiResource

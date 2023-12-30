@@ -14,10 +14,14 @@ class Cfdi extends CoyfiObject
     public $cfdi_type;
     public $payment_form;
     public $payment_method;
+    public $payment_date;
     public $payment_conditions;
+    public $payment_number;
 
     public Receiver $receiver;
     public array $items;
+    public array $related;
+    public array $complements;
 
     public function stamp()
     {
