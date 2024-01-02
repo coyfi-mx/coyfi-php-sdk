@@ -1,6 +1,6 @@
 <?php
 
-namespace Coyfi\Cfdi;
+namespace Coyfi;
 
 use ReflectionClass;
 use ReflectionProperty;

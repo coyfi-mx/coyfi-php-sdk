@@ -2,14 +2,14 @@
 
 namespace Feature;
 
-use Coyfi\Cfdi\Cfdi;
-use Coyfi\Cfdi\Coyfi;
-use Coyfi\Cfdi\Nodes\Address;
-use Coyfi\Cfdi\Nodes\Consignment;
-use Coyfi\Cfdi\Nodes\Good;
-use Coyfi\Cfdi\Nodes\Item;
-use Coyfi\Cfdi\Nodes\Location;
-use Coyfi\Cfdi\Nodes\Receiver;
+use Coyfi\Cfdi;
+use Coyfi\Coyfi;
+use Coyfi\Nodes\Address;
+use Coyfi\Nodes\Consignment;
+use Coyfi\Nodes\Good;
+use Coyfi\Nodes\Item;
+use Coyfi\Nodes\Location;
+use Coyfi\Nodes\Receiver;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
@@ -17,8 +17,8 @@ class ConsignmentNoteTest extends TestCase
 {
     protected function setUp(): void
     {
-        $key = config('sdk.key');
-        $secret = config('sdk.secret');
+        $key = Coyfi::config('sdk.key');
+        $secret = Coyfi::config('sdk.secret');
         Coyfi::setup($key, $secret);
     }
 

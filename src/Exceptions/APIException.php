@@ -1,6 +1,6 @@
 <?php
 
-namespace Coyfi\Cfdi\Exceptions;
+namespace Coyfi\Exceptions;
 
 use Exception;
 use Psr\Http\Message\RequestInterface;

@@ -2,11 +2,11 @@
 
 namespace Feature;
 
-use Coyfi\Cfdi\Cfdi;
-use Coyfi\Cfdi\Coyfi;
-use Coyfi\Cfdi\Nodes\Item;
-use Coyfi\Cfdi\Nodes\Receiver;
-use Coyfi\Cfdi\Nodes\RelatedCfdi;
+use Coyfi\Cfdi;
+use Coyfi\Coyfi;
+use Coyfi\Nodes\Item;
+use Coyfi\Nodes\Receiver;
+use Coyfi\Nodes\RelatedCfdi;
 use DateTime;
 use DateTimeZone;
 use PHPUnit\Framework\TestCase;
@@ -16,8 +16,8 @@ class CreditNoteTest extends TestCase
 {
     protected function setUp(): void
     {
-        $key = config('sdk.key');
-        $secret = config('sdk.secret');
+        $key = Coyfi::config('sdk.key');
+        $secret = Coyfi::config('sdk.secret');
         Coyfi::setup($key, $secret);
     }
 
@@ -26,6 +26,8 @@ class CreditNoteTest extends TestCase
      */
     public function thatCreditNoteCanBeStamped(): void
     {
+        $now = new DateTime('now', new DateTimeZone('America/Mexico_City'));
+        $now->modify('-1 day');
         $cfdi = new Cfdi([
             'invoice_number' => 1,
             'invoice_prefix' => 'E',
@@ -33,7 +35,7 @@ class CreditNoteTest extends TestCase
             'payment_form' => '01',
             'payment_method' => 'PUE',
             'payment_conditions' => 'Sin condiciones',
-            'payment_date' => date_format(new DateTime('now', new DateTimeZone('America/Mexico_City')), 'Y-m-d'),
+            'payment_date' => date_format($now, 'Y-m-d'),
             'receiver' => new Receiver([
                 'cfdi_use' => 'G03',
                 'business_name' => 'PÚBLICO EN GENERAL',

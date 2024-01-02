@@ -2,11 +2,11 @@
 
 namespace Feature;
 
-use Coyfi\Cfdi\Cfdi;
-use Coyfi\Cfdi\Coyfi;
-use Coyfi\Cfdi\Nodes\Item;
-use Coyfi\Cfdi\Nodes\Receiver;
-use Coyfi\Cfdi\Nodes\Tax;
+use Coyfi\Cfdi;
+use Coyfi\Coyfi;
+use Coyfi\Nodes\Item;
+use Coyfi\Nodes\Receiver;
+use Coyfi\Nodes\Tax;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
@@ -14,8 +14,8 @@ class IncomeInvoiceTest extends TestCase
 {
     protected function setUp(): void
     {
-        $key = config('sdk.key');
-        $secret = config('sdk.secret');
+        $key = Coyfi::config('sdk.key');
+        $secret = Coyfi::config('sdk.secret');
         Coyfi::setup($key, $secret);
     }
 
@@ -59,6 +59,7 @@ class IncomeInvoiceTest extends TestCase
         ]);
         $cfdi->stamp();
         $this->assertTrue(Uuid::isValid($cfdi->uuid));
+        $this->assertEquals($cfdi->uuid, $cfdi->sign->uuid);
         $this->assertXmlStringEqualsXmlString($cfdi->xml, $cfdi->xml);
     }
 }
