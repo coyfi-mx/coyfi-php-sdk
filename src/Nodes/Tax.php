@@ -1,8 +1,8 @@
 <?php
 
-namespace Coyfi\Cfdi\Nodes;
+namespace Coyfi\Nodes;
 
-use Coyfi\Cfdi\CoyfiObject;
+use Coyfi\CoyfiObject;
 
 class Tax extends CoyfiObject
 {

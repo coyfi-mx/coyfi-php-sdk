@@ -1,6 +1,6 @@
 <?php
 
-namespace Coyfi\Cfdi;
+namespace Coyfi;
 
 class Coyfi
 {
@@ -15,7 +15,7 @@ class Coyfi
 
     public static function isProduction()
     {
-        return config('sdk.env') == 'production';
+        return self::config('sdk.env') == 'production';
     }
 
     public static function getKey()
@@ -27,4 +27,27 @@ class Coyfi
     {
         return self::$secret;
     }
+
+    public static function config($key = null)
+    {
+        $names = explode('.', $key);
+        $file_name = array_shift($names);
+        $config = include __DIR__ . "/../config/{$file_name}.php";
+
+        $config_value = $config;
+        while ($config_key = array_shift($names)) {
+            $config_value = $config_value[$config_key] ?? null;
+        }
+
+        return $config_value;
+    }
+
+
+    public static function env($key, $default = null)
+    {
+        $env = getenv($key);
+
+        return $env === false ? $default : $env;
+    }
+
 }

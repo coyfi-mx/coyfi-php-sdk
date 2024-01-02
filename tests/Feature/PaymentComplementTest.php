@@ -2,11 +2,13 @@
 
 namespace Feature;
 
-use Coyfi\Cfdi\Cfdi;
-use Coyfi\Cfdi\Coyfi;
-use Coyfi\Cfdi\Nodes\Complement;
-use Coyfi\Cfdi\Nodes\Item;
-use Coyfi\Cfdi\Nodes\Receiver;
+use Coyfi\Cfdi;
+use Coyfi\Coyfi;
+use Coyfi\Nodes\Complement;
+use Coyfi\Nodes\Item;
+use Coyfi\Nodes\Receiver;
+use DateTime;
+use DateTimeZone;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
@@ -14,8 +16,8 @@ class PaymentComplementTest extends TestCase
 {
     protected function setUp(): void
     {
-        $key = config('sdk.key');
-        $secret = config('sdk.secret');
+        $key = Coyfi::config('sdk.key');
+        $secret = Coyfi::config('sdk.secret');
         Coyfi::setup($key, $secret);
     }
 
@@ -24,13 +26,15 @@ class PaymentComplementTest extends TestCase
      */
     public function thatPaymentComplementCanBeStamped(): void
     {
+        $now = new DateTime('now', new DateTimeZone('America/Mexico_City'));
+        $now->modify('-1 day');
         $cfdi = new Cfdi([
             'invoice_number' => 1,
             'invoice_prefix' => 'P',
             'cfdi_type' => 'P',
             'payment_method' => 'PUE',
             'payment_conditions' => 'Sin condiciones',
-            'payment_date' => '2023-12-27',
+            'payment_date' => date_format($now, 'Y-m-d'),
             'payment_number' => 2,
             'receiver' => new Receiver([
                 'cfdi_use' => 'G03',

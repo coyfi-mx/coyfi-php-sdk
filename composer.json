@@ -30,11 +30,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Coyfi\\Cfdi\\": "src/"
-        },
-        "files": [
-            "./helpers/env.php",
-            "./helpers/config.php"
-        ]
+            "Coyfi\\": "src/"
+        }
     }
 }

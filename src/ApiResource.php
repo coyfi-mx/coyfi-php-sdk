@@ -1,9 +1,9 @@
 <?php
 
-namespace Coyfi\Cfdi;
+namespace Coyfi;
 
-use Coyfi\Cfdi\Exceptions\APIException;
-use Coyfi\Cfdi\Exceptions\NoKeyProvidedException;
+use Coyfi\Exceptions\APIException;
+use Coyfi\Exceptions\NoKeyProvidedException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 

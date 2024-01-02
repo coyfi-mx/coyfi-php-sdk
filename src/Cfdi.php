@@ -1,8 +1,9 @@
 <?php
 
-namespace Coyfi\Cfdi;
+namespace Coyfi;
 
-use Coyfi\Cfdi\Nodes\Receiver;
+use Coyfi\Nodes\Item;
+use Coyfi\Nodes\Receiver;
 
 class Cfdi extends CoyfiObject
 {
@@ -19,6 +20,9 @@ class Cfdi extends CoyfiObject
     public $payment_number;
 
     public Receiver $receiver;
+    /**
+     * @var array<Item>
+     */
     public array $items;
     public array $related;
     public array $complements;
