@@ -42,12 +42,10 @@ class Coyfi
         return $config_value;
     }
 
-
     public static function env($key, $default = null)
     {
         $env = getenv($key);
 
         return $env === false ? $default : $env;
     }
-
 }

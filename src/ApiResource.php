@@ -56,7 +56,6 @@ class ApiResource
         } catch (ClientException $exception) {
             throw new APIException($exception->getResponse(), $exception->getRequest());
         }
-
     }
 
     private static function getInstance(): ApiResource

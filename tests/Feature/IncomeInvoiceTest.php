@@ -59,6 +59,7 @@ class IncomeInvoiceTest extends TestCase
         ]);
         $cfdi->stamp();
         $this->assertTrue(Uuid::isValid($cfdi->uuid));
+        $this->assertEquals($cfdi->uuid, $cfdi->sign->uuid);
         $this->assertXmlStringEqualsXmlString($cfdi->xml, $cfdi->xml);
     }
 }
