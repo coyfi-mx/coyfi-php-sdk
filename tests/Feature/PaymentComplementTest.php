@@ -59,8 +59,8 @@ class PaymentComplementTest extends TestCase
                     'amount' => 100,
                     'uuid' => '4E54D99A-597D-479D-A742-170B106096C0',
                     'payment_form' => '01',
-                    'remaining'=>100,
-                    'payment_number'=>1
+                    'remaining' => 100,
+                    'payment_number' => 1,
                 ]),
             ],
         ]);
