@@ -16,9 +16,9 @@ class ApiResource
     public function __construct()
     {
         if (Coyfi::isProduction()) {
-            $base_uri = 'http://coyfi-backend.house/api/';
+            $base_uri = 'http://18.218.120.203/api/';
         } else {
-            $base_uri = 'http://coyfi-backend.house/api/';
+            $base_uri = 'http://18.218.120.203/api/';
         }
 
         if (! Coyfi::getKey() || ! Coyfi::getSecret()) {
