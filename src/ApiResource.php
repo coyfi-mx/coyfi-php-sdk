@@ -15,21 +15,14 @@ class ApiResource
 
     public function __construct()
     {
-        if (Coyfi::isProduction()) {
-            $base_uri = 'http://18.218.120.203/api/';
-        } else {
-            $base_uri = 'http://18.218.120.203/api/';
-        }
-
         if (! Coyfi::getKey() || ! Coyfi::getSecret()) {
             throw new NoKeyProvidedException;
         }
         $this->client = new Client([
-            'base_uri' => $base_uri,
+            'base_uri' => Coyfi::config('sdk.api_url'),
             'auth' => [Coyfi::getKey(), Coyfi::getSecret()],
             'timeout' => 30.0,
-        ]
-        );
+        ]);
     }
 
     /**
