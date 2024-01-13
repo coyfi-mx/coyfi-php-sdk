@@ -13,11 +13,6 @@ class Coyfi
         self::$secret = $secret;
     }
 
-    public static function isProduction()
-    {
-        return self::config('sdk.env') == 'production';
-    }
-
     public static function getKey()
     {
         return self::$key;
@@ -44,8 +39,8 @@ class Coyfi
 
     public static function env($key, $default = null)
     {
-        $env = getenv($key);
+        $env = $_ENV[$key];
 
-        return $env === false ? $default : $env;
+        return $env === null ? $default : $env;
     }
 }

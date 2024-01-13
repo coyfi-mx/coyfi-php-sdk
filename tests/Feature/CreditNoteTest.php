@@ -1,26 +1,18 @@
 <?php
 
-namespace Feature;
+namespace Tests\Feature;
 
 use Coyfi\Cfdi;
-use Coyfi\Coyfi;
 use Coyfi\Nodes\Item;
 use Coyfi\Nodes\Receiver;
 use Coyfi\Nodes\RelatedCfdi;
 use DateTime;
 use DateTimeZone;
-use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
+use Tests\TestCase;
 
 class CreditNoteTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        $key = Coyfi::config('sdk.key');
-        $secret = Coyfi::config('sdk.secret');
-        Coyfi::setup($key, $secret);
-    }
-
     /**
      * @test
      */

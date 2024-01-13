@@ -1,9 +1,8 @@
 <?php
 
-namespace Feature;
+namespace Tests\Feature;
 
 use Coyfi\Cfdi;
-use Coyfi\Coyfi;
 use Coyfi\Nodes\Address;
 use Coyfi\Nodes\Consignment;
 use Coyfi\Nodes\Good;
@@ -12,18 +11,11 @@ use Coyfi\Nodes\Item;
 use Coyfi\Nodes\Location;
 use Coyfi\Nodes\Receiver;
 use Coyfi\Nodes\TransportOperator;
-use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
+use Tests\TestCase;
 
 class ConsignmentNoteTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        $key = Coyfi::config('sdk.key');
-        $secret = Coyfi::config('sdk.secret');
-        Coyfi::setup($key, $secret);
-    }
-
     /**
      * @test
      */
@@ -138,6 +130,5 @@ class ConsignmentNoteTest extends TestCase
         $cfdi->stamp();
         $this->assertTrue(Uuid::isValid($cfdi->uuid));
         $this->assertXmlStringEqualsXmlString($cfdi->xml, $cfdi->xml);
-        dump($cfdi->xml);
     }
 }
