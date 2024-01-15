@@ -12,7 +12,21 @@ class DatabaseModelTest extends TestCase
      */
     public function anModelIndexCanBeRetrieved(): void
     {
-        $countries = Country::all();
+        $countries = Country::query();
+
+        $this->assertNotEmpty($countries);
+        $this->assertInstanceOf(Country::class, array_pop($countries));
+    }
+
+    /**
+     * @test
+     */
+    public function anModelIndexCanBeRetrievedByColumns(): void
+    {
+        $countries = Country::query([
+            'name' => 'México',
+            'code' => 'MEX',
+        ]);
 
         $this->assertNotEmpty($countries);
         $this->assertInstanceOf(Country::class, array_pop($countries));

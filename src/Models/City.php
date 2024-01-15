@@ -2,7 +2,6 @@
 
 namespace Coyfi\Models;
 
-use Coyfi\Builder;
 use Coyfi\Model;
 
 class City extends Model
@@ -19,12 +18,8 @@ class City extends Model
     public static function find($name, $state): ?static
     {
         $state = State::findByName($state);
-        $table = static::$table;
-        $result = Builder::find("SELECT * FROM {$table} WHERE name='{$name}' AND state_id={$state->id} LIMIT 1;");
-        if ($result) {
-            return new static($result);
-        }
+        $items = self::query(['name' => $name, 'state_id' => $state->id]);
 
-        return null;
+        return array_pop($items);
     }
 }
