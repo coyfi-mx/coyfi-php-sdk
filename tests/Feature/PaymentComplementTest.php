@@ -1,26 +1,18 @@
 <?php
 
-namespace Feature;
+namespace Tests\Feature;
 
 use Coyfi\Cfdi;
-use Coyfi\Coyfi;
 use Coyfi\Nodes\Complement;
 use Coyfi\Nodes\Item;
 use Coyfi\Nodes\Receiver;
 use DateTime;
 use DateTimeZone;
-use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
+use Tests\TestCase;
 
 class PaymentComplementTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        $key = Coyfi::config('sdk.key');
-        $secret = Coyfi::config('sdk.secret');
-        Coyfi::setup($key, $secret);
-    }
-
     /**
      * @test
      */
@@ -59,6 +51,8 @@ class PaymentComplementTest extends TestCase
                     'amount' => 100,
                     'uuid' => '4E54D99A-597D-479D-A742-170B106096C0',
                     'payment_form' => '01',
+                    'remaining' => 100,
+                    'payment_number' => 1,
                 ]),
             ],
         ]);

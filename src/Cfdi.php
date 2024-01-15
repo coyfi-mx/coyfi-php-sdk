@@ -2,6 +2,7 @@
 
 namespace Coyfi;
 
+use Coyfi\Nodes\Consignment;
 use Coyfi\Nodes\Item;
 use Coyfi\Nodes\Receiver;
 use Coyfi\Nodes\Sign;
@@ -29,6 +30,7 @@ class Cfdi extends CoyfiObject
     public array $related;
     public array $complements;
     public Sign $sign;
+    public Consignment $consignment;
 
     public function stamp()
     {

@@ -10,4 +10,6 @@ class Consignment extends CoyfiObject
     public $international;
     public array $locations;
     public array $goods;
+    public InlandTransport $inland_transport;
+    public array $transport_operators;
 }

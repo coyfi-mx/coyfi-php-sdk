@@ -1,27 +1,21 @@
 <?php
 
-namespace Feature;
+namespace Tests\Feature;
 
 use Coyfi\Cfdi;
-use Coyfi\Coyfi;
 use Coyfi\Nodes\Address;
 use Coyfi\Nodes\Consignment;
 use Coyfi\Nodes\Good;
+use Coyfi\Nodes\InlandTransport;
 use Coyfi\Nodes\Item;
 use Coyfi\Nodes\Location;
 use Coyfi\Nodes\Receiver;
-use PHPUnit\Framework\TestCase;
+use Coyfi\Nodes\TransportOperator;
 use Ramsey\Uuid\Uuid;
+use Tests\TestCase;
 
 class ConsignmentNoteTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        $key = Coyfi::config('sdk.key');
-        $secret = Coyfi::config('sdk.secret');
-        Coyfi::setup($key, $secret);
-    }
-
     /**
      * @test
      */
@@ -99,6 +93,32 @@ class ConsignmentNoteTest extends TestCase
                 ],
                 'goods' => [
                     new Good([
+                        'code' => '24131510',
+                        'description' => 'Refrigeradores de mostrador',
+                        'quantity' => 10.00,
+                        'unit' => 'H87',
+                        'dimensions' => '59/40/36plg',
+                        'dangerous' => 'No',
+                        'packaging' => '4D',
+                        'weight' => 715.000,
+                    ]),
+                ],
+                'inland_transport' => new InlandTransport([
+                    'licence_type' => 'TPAF01',
+                    'licence_number' => '0X2XTXZ0X5X0X3X2X1X0',
+                    'transport_type' => 'C2',
+                    'weight' => 35.5,
+                    'license_plate' => '501AA',
+                    'year' => '2020',
+                    'civil_insurer_name' => ' PFG& Seguros S.A. de C.V.',
+                    'civil_insurance_policy' => '154647',
+                    'goods_insurer_name' => 'La VillaIOS S. A. de C. V.',
+                    'goods_insurance_policy' => '368549',
+                    'insurance_amount' => 1200.00,
+                ]),
+                'transport_operators' => [
+                    new TransportOperator([
+                        'type' => '01',
                         'licence_number' => '000004',
                         'name' => 'Pancracio Chug Wan',
                         'rfc' => 'PEVG960713H32',

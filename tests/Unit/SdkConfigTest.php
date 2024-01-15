@@ -1,20 +1,12 @@
 <?php
 
-namespace Unit;
+namespace Tests\Unit;
 
 use Coyfi\Coyfi;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class SdkConfigTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function thatEnvConfigExists(): void
-    {
-        $this->assertNotEmpty(Coyfi::config('sdk.env'));
-    }
-
     /**
      * @test
      */
@@ -24,6 +16,8 @@ class SdkConfigTest extends TestCase
         $secret = Coyfi::config('sdk.secret');
         Coyfi::setup($key, $secret);
 
+        $this->assertNotEmpty($key);
+        $this->assertNotEmpty($secret);
         $this->assertEquals($key, Coyfi::getKey());
         $this->assertEquals($secret, Coyfi::getSecret());
     }
