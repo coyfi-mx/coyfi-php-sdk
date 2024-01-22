@@ -18,10 +18,11 @@ class ApiResource
         if (! Coyfi::getKey() || ! Coyfi::getSecret()) {
             throw new NoKeyProvidedException;
         }
+
         $this->client = new Client([
             'base_uri' => Coyfi::config('sdk.api_url'),
             'auth' => [Coyfi::getKey(), Coyfi::getSecret()],
-            'timeout' => 30.0,
+            'timeout' => 60.0,
         ]);
     }
 

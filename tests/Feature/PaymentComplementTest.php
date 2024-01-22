@@ -30,17 +30,17 @@ class PaymentComplementTest extends TestCase
             'payment_number' => 2,
             'receiver' => new Receiver([
                 'cfdi_use' => 'G03',
-                'business_name' => 'PÚBLICO EN GENERAL',
-                'rfc' => 'XAXX010101000',
-                'tax_regime' => '616',
-                'zip_code' => '04000',
+                'business_name' => 'MARIA OLIVIA MARTINEZ SAGAZ',
+                'rfc' => 'MASO451221PM4',
+                'tax_regime' => '612',
+                'zip_code' => '80290',
             ]),
             'items' => [
                 new Item([
                     'code' => '84111506',
                     'description' => 'Pago',
-                    'unit_price' => 0,
-                    'subtotal' => 0,
+                    'unit_price' => 100,
+                    'subtotal' => 100,
                     'unit' => 'ACT',
                     'quantity' => 1,
                     'tax_breakdown' => '01',
