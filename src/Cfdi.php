@@ -2,10 +2,12 @@
 
 namespace Coyfi;
 
+use Coyfi\Nodes\CancellationStatus;
 use Coyfi\Nodes\Consignment;
 use Coyfi\Nodes\Item;
 use Coyfi\Nodes\Receiver;
 use Coyfi\Nodes\Sign;
+use Coyfi\Nodes\Status;
 
 class Cfdi extends CoyfiObject
 {
@@ -31,6 +33,8 @@ class Cfdi extends CoyfiObject
     public array $complements;
     public Sign $sign;
     public Consignment $consignment;
+    public CancellationStatus $cancellation_status;
+    public Status $status;
 
     public function stamp()
     {
@@ -44,5 +48,29 @@ class Cfdi extends CoyfiObject
         return 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=' .
             $this->uuid . '&re=' . $this->sign->rfc . '&rr=' . $this->receiver->rfc .
             '&fe=' . substr($this->sign->cfd, -8);
+    }
+
+    public function cancel($reason, $replacement_invoice_number = null)
+    {
+        $response = ApiResource::post("cfdi/{$this->uuid}/cancellation", [
+            'total' => $this->total,
+            'rfc' => $this->receiver->rfc,
+            'reason' => $reason,
+            'replacement_invoice_number' => $replacement_invoice_number,
+        ]);
+        $this->cancellation_status = new CancellationStatus($response);
+
+        return $this->cancellation_status;
+    }
+
+    public function status()
+    {
+        $response = ApiResource::post("cfdi/{$this->uuid}/status", [
+            'total' => $this->total,
+            'rfc' => $this->receiver->rfc,
+        ]);
+        $this->status = new Status($response);
+
+        return $this->status;
     }
 }

@@ -6,34 +6,41 @@ class Model extends CoyfiObject
 {
     protected static $table;
 
-    /**
-     * @return static[]
-     */
-    public static function all(): array
-    {
-        $table = static::$table;
-
-        return array_map(fn ($row) => new static($row), Builder::select("SELECT * FROM {$table};"));
-    }
-
     public static function findByCode($code): ?static
     {
-        return self::findByColumn('code', $code);
+        $items = self::query(['code' => $code]);
+
+        return array_pop($items);
     }
 
     public static function findByName($name): ?static
     {
-        return self::findByColumn('name', $name);
+        $items = self::query(['name' => $name]);
+
+        return array_pop($items);
     }
 
-    protected static function findByColumn($column, $value): ?static
+    /**
+     * @return static[]
+     */
+    public static function query(array $attributes = [], $offset = 0, $limit = 50, $like = false): array
     {
         $table = static::$table;
-        $result = Builder::find("SELECT * FROM {$table} WHERE {$column}='{$value}' LIMIT 1;");
-        if ($result) {
-            return new static($result);
+        $conditions = array_map(function ($key) use ($like, $attributes) {
+            if ($like) {
+                return "{$key} like '%{$attributes[$key]}%'";
+
+            } else {
+                return "{$key}='{$attributes[$key]}'";
+            }
+        }, array_keys($attributes));
+
+        if (count($conditions)) {
+            $conditions = 'WHERE ' . implode(' AND ', $conditions);
+        } else {
+            $conditions = '';
         }
 
-        return null;
+        return array_map(fn ($row) => new static($row), Builder::select("SELECT * FROM {$table} {$conditions} LIMIT {$limit} OFFSET {$offset};"));
     }
 }

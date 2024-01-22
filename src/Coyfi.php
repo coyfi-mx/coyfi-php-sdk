@@ -39,7 +39,7 @@ class Coyfi
 
     public static function env($key, $default = null)
     {
-        $env = $_ENV[$key];
+        $env = $_ENV[$key] ?? null;
 
         return $env === null ? $default : $env;
     }
