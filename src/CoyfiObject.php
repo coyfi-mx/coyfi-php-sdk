@@ -26,7 +26,7 @@ abstract class CoyfiObject
     public function fill(array $attributes): void
     {
         foreach ($attributes as $key => $value) {
-            if (property_exists($this, $key)) {
+            if (property_exists($this, $key) && $value) {
                 $this->$key = $value;
             }
         }
