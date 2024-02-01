@@ -73,4 +73,14 @@ class Cfdi extends CoyfiObject
 
         return $this->status;
     }
+
+    public function downloadPDF()
+    {
+        return ApiResource::get("cfdi/{$this->uuid}/pdf");
+    }
+
+    public function downloadXML()
+    {
+        return ApiResource::get("cfdi/{$this->uuid}/xml");
+    }
 }
