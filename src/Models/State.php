@@ -17,9 +17,9 @@ class State extends Model
     public $cities;
     public $locations;
 
-    public static function query(array $attributes = [], $offset = 0, $limit = 50, $like = false): array
+    public static function query(array $attributes = [], $offset = 0, $limit = 50): array
     {
-        $states = parent::query($attributes, $offset, $limit, $like);
+        $states = parent::query($attributes, $offset, $limit);
 
         return array_map(function ($state) {
             $state->cities = City::query(['state_id' => $state->id]);

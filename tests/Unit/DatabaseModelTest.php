@@ -25,7 +25,7 @@ class DatabaseModelTest extends TestCase
     {
         $countries = Country::query([
             'name' => 'México',
-            'code' => 'MEX',
+            ['code', '=', 'MEX'],
         ]);
 
         $this->assertNotEmpty($countries);
