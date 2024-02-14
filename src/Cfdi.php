@@ -4,6 +4,7 @@ namespace Coyfi;
 
 use Coyfi\Nodes\CancellationStatus;
 use Coyfi\Nodes\Consignment;
+use Coyfi\Nodes\GlobalInformation;
 use Coyfi\Nodes\Item;
 use Coyfi\Nodes\Receiver;
 use Coyfi\Nodes\Sign;
@@ -35,6 +36,7 @@ class Cfdi extends CoyfiObject
     public Consignment $consignment;
     public CancellationStatus $cancellation_status;
     public Status $status;
+    public GlobalInformation $global_information;
 
     public function stamp()
     {

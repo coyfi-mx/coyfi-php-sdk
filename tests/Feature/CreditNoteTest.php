@@ -27,7 +27,7 @@ class CreditNoteTest extends TestCase
             'payment_form' => '01',
             'payment_method' => 'PUE',
             'payment_conditions' => 'Sin condiciones',
-            'payment_date' => date_format($now, 'Y-m-d'),
+            'payment_date' => date_format($now, 'Y-m-d H:i:s'),
             'receiver' => new Receiver([
                 'cfdi_use' => 'G03',
                 'business_name' => 'MARIA OLIVIA MARTINEZ SAGAZ',

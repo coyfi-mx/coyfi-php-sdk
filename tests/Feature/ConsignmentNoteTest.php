@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Coyfi\Cfdi;
 use Coyfi\Nodes\Address;
 use Coyfi\Nodes\Consignment;
+use Coyfi\Nodes\GlobalInformation;
 use Coyfi\Nodes\Good;
 use Coyfi\Nodes\InlandTransport;
 use Coyfi\Nodes\Item;
@@ -33,6 +34,11 @@ class ConsignmentNoteTest extends TestCase
                 'rfc' => 'XAXX010101000',
                 'tax_regime' => '616',
                 'zip_code' => '04000',
+            ]),
+            'global_information' => new GlobalInformation([
+                'frequency' => '01',
+                'month' => date('m', time()),
+                'year' => date('Y', time()),
             ]),
             'items' => [
                 new Item([
