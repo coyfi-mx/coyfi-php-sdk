@@ -4,3 +4,4 @@ composer.lock
 .idea
 /database/coyfi.db
 /.env
+.phpunit.result.cache

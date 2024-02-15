@@ -9,9 +9,12 @@ use Coyfi\Nodes\Item;
 use Coyfi\Nodes\Receiver;
 use Coyfi\Nodes\Sign;
 use Coyfi\Nodes\Status;
+use Coyfi\Traits\HasFromArray;
 
 class Cfdi extends CoyfiObject
 {
+    use HasFromArray;
+
     public $uuid;
     public $xml;
     public $total;
