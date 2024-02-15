@@ -9,6 +9,6 @@ class SatUnit extends Model
     protected static $table = 'sat_units';
 
     public $id;
-    public $name;
-    public $code;
+    public $unit_key;
+    public $description;
 }
