@@ -51,11 +51,11 @@ class Builder
         if (array_search('zip', $extensions) === false || array_search('sqlite3', $extensions) === false) {
             throw new Exception('Extensions zip and sqlite3 must be enabled');
         }
-        $database_path = Coyfi::config('sdk.path') . 'database/coyfi.db';
+        $database_path = sys_get_temp_dir() . '/coyfi.db';
         if (! file_exists($database_path)) {
             $zip = new ZipArchive;
             $zip->open(Coyfi::config('sdk.path') . 'database/coyfi.zip');
-            $zip->extractTo(Coyfi::config('sdk.path') . 'database');
+            $zip->extractTo(sys_get_temp_dir());
             $zip->close();
         }
 

@@ -1,1 +1,4 @@
-rm database/coyfi.db
+#!/usr/bin/php
+<?php
+
+unlink(sys_get_temp_dir() . '/coyfi.db');
