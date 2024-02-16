@@ -16,7 +16,7 @@ class PaymentComplementTest extends TestCase
     /**
      * @test
      */
-    public function thatPaymentComplementCanBeStamped(): void
+    public function paymentComplementCanBeStamped(): void
     {
         $now = new DateTime('now', new DateTimeZone('America/Mexico_City'));
         $now->modify('-1 day');
@@ -58,6 +58,7 @@ class PaymentComplementTest extends TestCase
         ]);
 
         $cfdi->stamp();
+
         $this->assertTrue(Uuid::isValid($cfdi->uuid));
         $this->assertXmlStringEqualsXmlString($cfdi->xml, $cfdi->xml);
     }

@@ -13,6 +13,7 @@ use Coyfi\Nodes\Item;
 use Coyfi\Nodes\Location;
 use Coyfi\Nodes\Receiver;
 use Coyfi\Nodes\Status;
+use Coyfi\Nodes\Tax;
 use Coyfi\Nodes\TransportOperator;
 
 trait HasFromArray
@@ -43,7 +44,22 @@ trait HasFromArray
         }
 
         if (isset($attributes['items'])) {
-            $cfdi->items = array_map(fn ($item) => new Item($item), $attributes['items']);
+            $cfdi->items = array_map(function ($item_attributes) {
+                $item = new Item([
+                    'code' => $item_attributes['code'],
+                    'description' => $item_attributes['description'],
+                    'unit_price' => $item_attributes['unit_price'],
+                    'subtotal' => $item_attributes['subtotal'],
+                    'unit' => $item_attributes['unit'],
+                    'quantity' => $item_attributes['quantity'],
+                    'tax_breakdown' => $item_attributes['tax_breakdown'],
+                ]);
+                if (isset($item_attributes['taxes'])) {
+                    $item->taxes = array_map(fn ($tax) => new Tax($tax), $item_attributes['taxes']);
+                }
+
+                return $item;
+            }, $attributes['items']);
         }
 
         if (isset($attributes['consignment'])) {

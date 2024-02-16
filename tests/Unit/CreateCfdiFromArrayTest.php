@@ -38,7 +38,14 @@ class CreateCfdiFromArrayTest extends TestCase
                     'subtotal' => 100.0,
                     'unit' => 'E48',
                     'quantity' => 1,
-                    'tax_breakdown' => '01',
+                    'tax_breakdown' => '02',
+                    'taxes' => [
+                        [
+                            'rate' => 0.16,
+                            'type' => '002',
+                            'factor' => 'Tasa',
+                        ],
+                    ],
                 ],
             ],
             'consignment' => [
