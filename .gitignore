@@ -2,6 +2,7 @@ composer.phar
 composer.lock
 /vendor/
 .idea
-/database/coyfi.db
+*.db
+*.sql
 /.env
 .phpunit.result.cache
