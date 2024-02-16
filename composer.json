@@ -17,8 +17,8 @@
         }
     ],
     "bin": [
-        "bin/reload-database",
-        "bin/update-database"
+        "bin/coyfi-reload-database",
+        "bin/coyfi-update-database"
       ],
     "require": {
         "php": "^8.1"

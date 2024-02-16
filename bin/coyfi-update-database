@@ -21,4 +21,5 @@
  zip_codes \
 > coyfi.sql
 mysql2sqlite coyfi.sql | sqlite3 coyfi.db
-zip database/coyfi.zip coyfi.db
+zip ../database/coyfi.zip coyfi.db
+rm coyfi.db coyfi.sql
