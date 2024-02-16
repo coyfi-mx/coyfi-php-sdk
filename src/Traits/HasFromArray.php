@@ -5,6 +5,7 @@ namespace Coyfi\Traits;
 use Coyfi\Cfdi;
 use Coyfi\Nodes\Address;
 use Coyfi\Nodes\CancellationStatus;
+use Coyfi\Nodes\Complement;
 use Coyfi\Nodes\Consignment;
 use Coyfi\Nodes\GlobalInformation;
 use Coyfi\Nodes\Good;
@@ -12,6 +13,7 @@ use Coyfi\Nodes\InlandTransport;
 use Coyfi\Nodes\Item;
 use Coyfi\Nodes\Location;
 use Coyfi\Nodes\Receiver;
+use Coyfi\Nodes\RelatedCfdi;
 use Coyfi\Nodes\Status;
 use Coyfi\Nodes\Tax;
 use Coyfi\Nodes\TransportOperator;
@@ -60,6 +62,18 @@ trait HasFromArray
 
                 return $item;
             }, $attributes['items']);
+        }
+
+        if (isset($attributes['complements'])) {
+            $cfdi->complements = array_map(function ($complement) {
+                return new Complement($complement);
+            }, $attributes['complements']);
+        }
+
+        if (isset($attributes['related'])) {
+            $cfdi->related = array_map(function ($related_cfdi) {
+                return new RelatedCfdi($related_cfdi);
+            }, $attributes['related']);
         }
 
         if (isset($attributes['consignment'])) {

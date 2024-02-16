@@ -30,6 +30,21 @@ class CreateCfdiFromArrayTest extends TestCase
                 'month' => date('m', time()),
                 'year' => date('Y', time()),
             ],
+            'related' => [
+                [
+                    'type' => '01',
+                    'uuid' => '4E54D99A-597D-479D-A742-170B106096C0',
+                ],
+            ],
+            'complements' => [
+                [
+                    'amount' => 100,
+                    'uuid' => '4E54D99A-597D-479D-A742-170B106096C0',
+                    'payment_form' => '01',
+                    'remaining' => 100,
+                    'payment_number' => 1,
+                ],
+            ],
             'items' => [
                 [
                     'code' => '78101802',
