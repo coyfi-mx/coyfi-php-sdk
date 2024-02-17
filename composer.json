@@ -16,10 +16,13 @@
             "homepage": "https://github.com/gussrw"
         }
     ],
+    "bin": [
+        "bin/coyfi-reload-database",
+        "bin/coyfi-update-database"
+      ],
     "require": {
         "php": "^8.1"
     },
-
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.7",
         "guzzlehttp/guzzle": "^7.8",

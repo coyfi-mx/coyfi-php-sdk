@@ -15,9 +15,9 @@ class TransportType extends Model
     public $revoked_at;
     public $transport_license_types;
 
-    public static function query(array $attributes = [], $offset = 0, $limit = 50, $like = false): array
+    public static function query(array $attributes = [], $offset = 0, $limit = 50): array
     {
-        $transport_types = parent::query($attributes, $offset, $limit, $like);
+        $transport_types = parent::query($attributes, $offset, $limit);
 
         return array_map(function ($transport_type) {
             $transport_license_types = TransportLicenseType::query(['transport_type_id' => $transport_type->id]);

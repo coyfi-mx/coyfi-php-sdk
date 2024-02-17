@@ -23,13 +23,12 @@ class Model extends CoyfiObject
     /**
      * @return static[]
      */
-    public static function query(array $attributes = [], $offset = 0, $limit = 50, $like = false): array
+    public static function query(array $attributes = [], $offset = 0, $limit = 50): array
     {
         $table = static::$table;
-        $conditions = array_map(function ($key) use ($like, $attributes) {
-            if ($like) {
-                return "{$key} like '%{$attributes[$key]}%'";
-
+        $conditions = array_map(function ($key) use ($attributes) {
+            if (is_array($values = $attributes[$key])) {
+                return "{$values[0]} {$values[1]} '{$values[2]}'";
             } else {
                 return "{$key}='{$attributes[$key]}'";
             }

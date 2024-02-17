@@ -22,9 +22,9 @@ class ZipCode extends Model
     public $location;
     public $neighborhoods;
 
-    public static function query(array $attributes = [], $offset = 0, $limit = 50, $like = false): array
+    public static function query(array $attributes = [], $offset = 0, $limit = 50): array
     {
-        $zip_codes = parent::query($attributes, $offset, $limit, $like);
+        $zip_codes = parent::query($attributes, $offset, $limit);
 
         return array_map(function ($zip_code) {
             $states = State::query(['id' => $zip_code->state_id]);

@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Coyfi\Cfdi;
+use Coyfi\Nodes\GlobalInformation;
 use Coyfi\Nodes\Item;
 use Coyfi\Nodes\Receiver;
 use Coyfi\Nodes\Tax;
@@ -29,6 +30,11 @@ class IncomeInvoiceTest extends TestCase
                 'rfc' => 'XAXX010101000',
                 'tax_regime' => '616',
                 'zip_code' => '04000',
+            ]),
+            'global_information' => new GlobalInformation([
+                'frequency' => '01',
+                'month' => date('m', time()),
+                'year' => date('Y', time()),
             ]),
             'items' => [
                 new Item([

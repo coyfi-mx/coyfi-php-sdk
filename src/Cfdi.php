@@ -4,13 +4,17 @@ namespace Coyfi;
 
 use Coyfi\Nodes\CancellationStatus;
 use Coyfi\Nodes\Consignment;
+use Coyfi\Nodes\GlobalInformation;
 use Coyfi\Nodes\Item;
 use Coyfi\Nodes\Receiver;
 use Coyfi\Nodes\Sign;
 use Coyfi\Nodes\Status;
+use Coyfi\Traits\HasFromArray;
 
 class Cfdi extends CoyfiObject
 {
+    use HasFromArray;
+
     public $uuid;
     public $xml;
     public $total;
@@ -35,6 +39,7 @@ class Cfdi extends CoyfiObject
     public Consignment $consignment;
     public CancellationStatus $cancellation_status;
     public Status $status;
+    public GlobalInformation $global_information;
 
     public function stamp()
     {
@@ -72,5 +77,15 @@ class Cfdi extends CoyfiObject
         $this->status = new Status($response);
 
         return $this->status;
+    }
+
+    public function downloadPDF()
+    {
+        return ApiResource::get("cfdi/{$this->uuid}/pdf");
+    }
+
+    public function downloadXML()
+    {
+        return ApiResource::get("cfdi/{$this->uuid}/xml");
     }
 }
