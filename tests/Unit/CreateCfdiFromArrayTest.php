@@ -18,6 +18,15 @@ class CreateCfdiFromArrayTest extends TestCase
             'cfdi_type' => 'I',
             'payment_method' => 'PUE',
             'payment_form' => '01',
+            'sign' => [
+                'cfd' => 'ZKK+zbRPzDf7EF66wFWuQ5kvJvXguge5WViz1xbnYDxKfglQ7BrYYrlt/CJbRVlUxv29igT+l5i22OHGtkG/wOrmgUiIkKXetAkcQVb+dy0gG6Ahzs1yihcaZo6+EYZFzIAngmSFZY1GW47XtPqQ7zpsd1OOmQ0Z81hGxrXoAzwiLJaQajxKZaxs79IVSQRBNU9XwNZziGhvlOq93ieOwHgTxE3DVCeP/IIs/XCEwm3hXhBte1VzAqGWy/MXIjenFFF6BNw6P6caYVPD7oGAxXEbmroNfB3Tu0fOPunG7KwF9ZYK3pN94SBMMIQaYlcou0Lepw+DFATbCK3Dlnkurg==',
+                'rfc' => 'CVD110412TF6',
+                'uuid' => '9DF46DD5-CE79-555D-8635-30ED1138FFF6',
+                'stamp' => 'fhmtIp+UT816BRySdCie2oljLwJJXc/ls+qHLjN4cK19wo7Z039vF6UHRRth6clhN2hBUrdoLIQHxS5vBe1k+DQkZhmyjE1rA2usia6eC9zMosetiGWu3fFdNi2W1KpuxMBKhCfOjxj6OdAHrgv71mhvfExI+YdU6BF7Fo+sgEJ1oUgtij9UjUP2uPgZqTu5seb25vrjX1gLZZvr3ij5ly+x04x/Aqqf49foOUWlsOn48qlpe87S7BXAnDXRbChBgWHYUzTsJmFvhuGvYez5iFZVKu74kZWagn/+0Of2jp7cjpPiLFQ2+FqsaRvDqJJpc8MJl8EPJ459v6BfItooQQ==',
+                'version' => '1.1',
+                'stamp_date' => '2024-02-07T17:02:36',
+                'cert_number' => '30001000000500003456',
+            ],
             'receiver' => [
                 'cfdi_use' => 'G03',
                 'business_name' => 'PÚBLICO EN GENERAL',
@@ -146,6 +155,5 @@ class CreateCfdiFromArrayTest extends TestCase
         ];
         $consigment_cfdi = Cfdi::fromArray($attributtes);
         $this->assertInstanceOf(Cfdi::class, $consigment_cfdi);
-
     }
 }

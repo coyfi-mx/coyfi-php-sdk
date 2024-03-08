@@ -14,6 +14,7 @@ use Coyfi\Nodes\Item;
 use Coyfi\Nodes\Location;
 use Coyfi\Nodes\Receiver;
 use Coyfi\Nodes\RelatedCfdi;
+use Coyfi\Nodes\Sign;
 use Coyfi\Nodes\Status;
 use Coyfi\Nodes\Tax;
 use Coyfi\Nodes\TransportOperator;
@@ -36,6 +37,10 @@ trait HasFromArray
             ...isset($attributes['payment_conditions']) ? ['payment_conditions' => $attributes['payment_conditions']] : [],
             ...isset($attributes['payment_number']) ? ['payment_number' => $attributes['payment_number']] : [],
         ]);
+
+        if (isset($attributes['sign'])) {
+            $cfdi->sign = new Sign($attributes['sign']);
+        }
 
         if (isset($attributes['receiver'])) {
             $cfdi->receiver = new Receiver($attributes['receiver']);

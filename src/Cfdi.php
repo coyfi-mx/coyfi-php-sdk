@@ -88,4 +88,14 @@ class Cfdi extends CoyfiObject
     {
         return ApiResource::get("cfdi/{$this->uuid}/xml");
     }
+
+    public function downloadReceiptPDF()
+    {
+        return ApiResource::get("cfdi/{$this->uuid}/receipt-pdf");
+    }
+
+    public function downloadReceiptXML()
+    {
+        return ApiResource::get("cfdi/{$this->uuid}/receipt-xml");
+    }
 }
