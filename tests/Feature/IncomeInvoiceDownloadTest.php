@@ -25,8 +25,8 @@ class IncomeInvoiceDownloadTest extends TestCase
             'payment_method' => 'PUE',
             'payment_conditions' => 'Sin condiciones',
             'receiver' => new Receiver([
-                'cfdi_use' => 'G03',
-                'business_name' => 'PÚBLICO EN GENERAL',
+                'cfdi_use' => 'S01',
+                'business_name' => 'PUBLICO EN GENERAL',
                 'rfc' => 'XAXX010101000',
                 'tax_regime' => '616',
                 'zip_code' => '04000',

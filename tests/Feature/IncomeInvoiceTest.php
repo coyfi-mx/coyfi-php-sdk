@@ -25,8 +25,8 @@ class IncomeInvoiceTest extends TestCase
             'payment_method' => 'PUE',
             'payment_conditions' => 'Sin condiciones',
             'receiver' => new Receiver([
-                'cfdi_use' => 'G03',
-                'business_name' => 'PÚBLICO EN GENERAL',
+                'cfdi_use' => 'S01',
+                'business_name' => 'PUBLICO EN GENERAL',
                 'rfc' => 'XAXX010101000',
                 'tax_regime' => '616',
                 'zip_code' => '04000',
@@ -56,6 +56,9 @@ class IncomeInvoiceTest extends TestCase
             ],
         ]);
         $cfdi->stamp();
+        $cfdi_array = Cfdi::retrieve($cfdi->uuid);
+
+        $this->assertEquals($cfdi_array, $cfdi->toArray());
         $this->assertTrue(Uuid::isValid($cfdi->uuid));
         $this->assertEquals($cfdi->uuid, $cfdi->sign->uuid);
         $this->assertXmlStringEqualsXmlString($cfdi->xml, $cfdi->xml);

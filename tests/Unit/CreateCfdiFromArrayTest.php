@@ -3,6 +3,8 @@
 namespace Tests\Unit;
 
 use Coyfi\Cfdi;
+use DateTime;
+use DateTimeZone;
 use Tests\TestCase;
 
 class CreateCfdiFromArrayTest extends TestCase
@@ -12,6 +14,8 @@ class CreateCfdiFromArrayTest extends TestCase
      */
     public function cfdiCanBeCreatedFromArray(): void
     {
+        $now = new DateTime('now', new DateTimeZone('America/Mexico_City'));
+
         $attributtes = [
             'invoice_number' => 1,
             'invoice_prefix' => 'P',
@@ -28,8 +32,8 @@ class CreateCfdiFromArrayTest extends TestCase
                 'cert_number' => '30001000000500003456',
             ],
             'receiver' => [
-                'cfdi_use' => 'G03',
-                'business_name' => 'PÚBLICO EN GENERAL',
+                'cfdi_use' => 'S01',
+                'business_name' => 'PUBLICO EN GENERAL',
                 'rfc' => 'XAXX010101000',
                 'tax_regime' => '616',
                 'zip_code' => '04000',
@@ -45,13 +49,20 @@ class CreateCfdiFromArrayTest extends TestCase
                     'uuid' => '4E54D99A-597D-479D-A742-170B106096C0',
                 ],
             ],
-            'complements' => [
+            'payment_complements' => [
                 [
-                    'amount' => 100,
-                    'uuid' => '4E54D99A-597D-479D-A742-170B106096C0',
+                    'payment_date' => date_format($now, 'Y-m-d H:i:s'),
+                    'payment_method' => 'PUE',
                     'payment_form' => '01',
-                    'remaining' => 100,
-                    'payment_number' => 1,
+                    'currency' => 'MXN',
+                    'exchange_rate' => 1,
+                    'related' => [[
+                        'amount' => 100,
+                        'uuid' => '4E54D99A-597D-479D-A742-170B106096C0',
+                        'remaining' => 100,
+                        'payment_form' => '01',
+                        'payment_number' => 1,
+                    ]],
                 ],
             ],
             'items' => [
@@ -80,7 +91,7 @@ class CreateCfdiFromArrayTest extends TestCase
                         'type' => 'Origen',
                         'rfc' => 'XAXX010101000',
                         'name' => 'Juan Perez',
-                        'date' => '2023-12-26 12:12',
+                        'date' => '2023-12-26 12:12:00',
                         'addresses' => [
                             [
                                 'street' => 'Avenida Reforma Norte.',
@@ -100,7 +111,7 @@ class CreateCfdiFromArrayTest extends TestCase
                         'type' => 'Destino',
                         'rfc' => 'XAXX010101000',
                         'name' => 'Juan Palacios',
-                        'date' => '2023-12-27 12:12',
+                        'date' => '2023-12-27 12:12:00',
                         'distance' => 123.45,
                         'addresses' => [
                             [
@@ -137,11 +148,11 @@ class CreateCfdiFromArrayTest extends TestCase
                     'weight' => 35.5,
                     'license_plate' => '501AA',
                     'year' => '2020',
-                    'civil_insurer_name' => ' PFG& Seguros S.A. de C.V.',
+                    'civil_insurer_name' => 'PFG& Seguros S.A. de C.V.',
                     'civil_insurance_policy' => '154647',
                     'goods_insurer_name' => 'La VillaIOS S. A. de C. V.',
                     'goods_insurance_policy' => '368549',
-                    'insurance_amount' => 1200.00,
+                    'insurance_amount' => 1200,
                 ],
                 'transport_operators' => [
                     [

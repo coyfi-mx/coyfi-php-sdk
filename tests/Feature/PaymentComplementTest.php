@@ -3,8 +3,9 @@
 namespace Tests\Feature;
 
 use Coyfi\Cfdi;
-use Coyfi\Nodes\Complement;
 use Coyfi\Nodes\Item;
+use Coyfi\Nodes\PaymentComplement;
+use Coyfi\Nodes\PaymentRelatedDocument;
 use Coyfi\Nodes\Receiver;
 use DateTime;
 use DateTimeZone;
@@ -24,9 +25,7 @@ class PaymentComplementTest extends TestCase
             'invoice_number' => 1,
             'invoice_prefix' => 'P',
             'cfdi_type' => 'P',
-            'payment_method' => 'PUE',
             'payment_conditions' => 'Sin condiciones',
-            'payment_date' => date_format($now, 'Y-m-d'),
             'payment_number' => 2,
             'receiver' => new Receiver([
                 'cfdi_use' => 'G03',
@@ -39,26 +38,35 @@ class PaymentComplementTest extends TestCase
                 new Item([
                     'code' => '84111506',
                     'description' => 'Pago',
-                    'unit_price' => 100,
-                    'subtotal' => 100,
+                    'unit_price' => 0,
+                    'subtotal' => 0,
                     'unit' => 'ACT',
                     'quantity' => 1,
                     'tax_breakdown' => '01',
                 ]),
             ],
-            'complements' => [
-                new Complement([
-                    'amount' => 100,
-                    'uuid' => '4E54D99A-597D-479D-A742-170B106096C0',
+            'payment_complements' => [
+                new PaymentComplement([
+                    'payment_date' => date_format($now, 'Y-m-d H:i:s'),
+                    'payment_method' => 'PUE',
                     'payment_form' => '01',
-                    'remaining' => 100,
-                    'payment_number' => 1,
+                    'currency' => 'MXN',
+                    'exchange_rate' => 1,
+                    'related' => [new PaymentRelatedDocument([
+                        'amount' => 100,
+                        'uuid' => '4E54D99A-597D-479D-A742-170B106096C0',
+                        'remaining' => 100,
+                        'payment_form' => '01',
+                        'payment_number' => 1,
+                    ])],
                 ]),
             ],
         ]);
 
         $cfdi->stamp();
+        $cfdi_array = Cfdi::retrieve($cfdi->uuid);
 
+        $this->assertEquals($cfdi_array, $cfdi->toArray());
         $this->assertTrue(Uuid::isValid($cfdi->uuid));
         $this->assertXmlStringEqualsXmlString($cfdi->xml, $cfdi->xml);
     }

@@ -16,8 +16,8 @@ class CancelInvoiceTest extends TestCase
             'uuid' => '14162DEF-6CF5-5CFE-98F0-162D51FBFBB1',
             'total' => 117.16,
             'receiver' => [
-                'cfdi_use' => 'G03',
-                'business_name' => 'PÚBLICO EN GENERAL',
+                'cfdi_use' => 'S01',
+                'business_name' => 'PUBLICO EN GENERAL',
                 'rfc' => 'XAXX010101000',
                 'tax_regime' => '616',
                 'zip_code' => '04000',
@@ -37,8 +37,8 @@ class CancelInvoiceTest extends TestCase
             'uuid' => '14162DEF-6CF5-5CFE-98F0-162D51FBFBB1',
             'total' => 117.16,
             'receiver' => [
-                'cfdi_use' => 'G03',
-                'business_name' => 'PÚBLICO EN GENERAL',
+                'cfdi_use' => 'S01',
+                'business_name' => 'PUBLICO EN GENERAL',
                 'rfc' => 'XAXX010101000',
                 'tax_regime' => '616',
                 'zip_code' => '04000',
