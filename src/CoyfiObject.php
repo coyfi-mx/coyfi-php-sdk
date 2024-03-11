@@ -26,7 +26,7 @@ abstract class CoyfiObject
     public function fill(array $attributes): void
     {
         foreach ($attributes as $key => $value) {
-            if (property_exists($this, $key) && $value) {
+            if (property_exists($this, $key) && ! is_null($value)) {
                 $this->$key = $value;
             }
         }
@@ -36,7 +36,7 @@ abstract class CoyfiObject
     {
         $attributes = $this->getAttributes();
 
-        return array_combine(
+        return array_filter(array_combine(
             $attributes,
             array_map(function ($attribute) {
                 $attributeValue = $this->$attribute ?? null;
@@ -49,7 +49,7 @@ abstract class CoyfiObject
 
                 return $this->$attribute ?? null;
             }, $attributes)
-        );
+        ), fn ($value) => ! is_null($value));
     }
 
     private function getAttributes(): array

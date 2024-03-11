@@ -29,8 +29,8 @@ class ConsignmentNoteTest extends TestCase
             'payment_method' => 'PUE',
             'payment_form' => '01',
             'receiver' => new Receiver([
-                'cfdi_use' => 'G03',
-                'business_name' => 'PÚBLICO EN GENERAL',
+                'cfdi_use' => 'S01',
+                'business_name' => 'PUBLICO EN GENERAL',
                 'rfc' => 'XAXX010101000',
                 'tax_regime' => '616',
                 'zip_code' => '04000',
@@ -59,7 +59,7 @@ class ConsignmentNoteTest extends TestCase
                         'type' => 'Origen',
                         'rfc' => 'XAXX010101000',
                         'name' => 'Juan Perez',
-                        'date' => '2023-12-26 12:12',
+                        'date' => '2023-12-26 12:12:00',
                         'addresses' => [
                             new Address([
                                 'street' => 'Avenida Reforma Norte.',
@@ -79,7 +79,7 @@ class ConsignmentNoteTest extends TestCase
                         'type' => 'Destino',
                         'rfc' => 'XAXX010101000',
                         'name' => 'Juan Palacios',
-                        'date' => '2023-12-27 12:12',
+                        'date' => '2023-12-27 12:12:00',
                         'distance' => 123.45,
                         'addresses' => [
                             new Address([
@@ -116,7 +116,7 @@ class ConsignmentNoteTest extends TestCase
                     'weight' => 35.5,
                     'license_plate' => '501AA',
                     'year' => '2020',
-                    'civil_insurer_name' => ' PFG& Seguros S.A. de C.V.',
+                    'civil_insurer_name' => 'PFG& Seguros S.A. de C.V.',
                     'civil_insurance_policy' => '154647',
                     'goods_insurer_name' => 'La VillaIOS S. A. de C. V.',
                     'goods_insurance_policy' => '368549',
@@ -134,6 +134,9 @@ class ConsignmentNoteTest extends TestCase
         ]);
 
         $cfdi->stamp();
+        $cfdi_array = Cfdi::retrieve($cfdi->uuid);
+
+        $this->assertEquals($cfdi_array, $cfdi->toArray());
         $this->assertTrue(Uuid::isValid($cfdi->uuid));
         $this->assertXmlStringEqualsXmlString($cfdi->xml, $cfdi->xml);
     }

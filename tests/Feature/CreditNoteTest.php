@@ -52,6 +52,9 @@ class CreditNoteTest extends TestCase
         ]);
 
         $cfdi->stamp();
+        $cfdi_array = Cfdi::retrieve($cfdi->uuid);
+
+        $this->assertEquals($cfdi_array, $cfdi->toArray());
         $this->assertTrue(Uuid::isValid($cfdi->uuid));
         $this->assertXmlStringEqualsXmlString($cfdi->xml, $cfdi->xml);
     }

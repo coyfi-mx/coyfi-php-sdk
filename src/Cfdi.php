@@ -5,11 +5,13 @@ namespace Coyfi;
 use Coyfi\Nodes\CancellationStatus;
 use Coyfi\Nodes\Consignment;
 use Coyfi\Nodes\GlobalInformation;
+use Coyfi\Nodes\InvoiceStatus;
 use Coyfi\Nodes\Item;
 use Coyfi\Nodes\Receiver;
 use Coyfi\Nodes\Sign;
-use Coyfi\Nodes\Status;
 use Coyfi\Traits\HasFromArray;
+use DateTime;
+use DateTimeZone;
 
 class Cfdi extends CoyfiObject
 {
@@ -18,15 +20,16 @@ class Cfdi extends CoyfiObject
     public $uuid;
     public $xml;
     public $total;
+    public $date;
+    public $status;
+    public Sign $sign;
 
     public $invoice_number;
     public $invoice_prefix;
     public $cfdi_type;
     public $payment_form;
     public $payment_method;
-    public $payment_date;
-    public $payment_conditions;
-    public $payment_number;
+    public $payment_terms;
 
     public Receiver $receiver;
     /**
@@ -34,17 +37,27 @@ class Cfdi extends CoyfiObject
      */
     public array $items;
     public array $related;
-    public array $complements;
-    public Sign $sign;
+    public array $payment_complements;
     public Consignment $consignment;
     public CancellationStatus $cancellation_status;
-    public Status $status;
+    public InvoiceStatus $invoice_status;
     public GlobalInformation $global_information;
+
+    public static function retrieve($uuid)
+    {
+        return ApiResource::get("cfdi/{$uuid}");
+    }
 
     public function stamp()
     {
         $response = ApiResource::post('cfdi', $this->toArray());
         $response['sign'] = new Sign($response['sign']);
+
+        $datetime = new DateTime;
+        $datetime->setTimestamp(strtotime($response['date']));
+        $datetime->setTimezone(new DateTimeZone('America/Mexico_City'));
+        $response['date'] = $datetime->format('Y-m-d H:i:s');
+
         $this->fill($response);
     }
 
@@ -74,9 +87,9 @@ class Cfdi extends CoyfiObject
             'total' => $this->total,
             'rfc' => $this->receiver->rfc,
         ]);
-        $this->status = new Status($response);
+        $this->invoice_status = new InvoiceStatus($response);
 
-        return $this->status;
+        return $this->invoice_status;
     }
 
     public function downloadPDF()

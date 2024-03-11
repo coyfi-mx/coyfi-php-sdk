@@ -4,7 +4,7 @@ namespace Coyfi\Nodes;
 
 use Coyfi\CoyfiObject;
 
-class Complement extends CoyfiObject
+class PaymentRelatedDocument extends CoyfiObject
 {
     public $amount;
     public $uuid;

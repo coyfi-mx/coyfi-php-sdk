@@ -4,7 +4,7 @@ namespace Coyfi\Nodes;
 
 use Coyfi\CoyfiObject;
 
-class Status extends CoyfiObject
+class InvoiceStatus extends CoyfiObject
 {
     public $invoice_issuer_rfc;
     public $invoice_receiver_rfc;

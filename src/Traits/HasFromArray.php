@@ -5,13 +5,14 @@ namespace Coyfi\Traits;
 use Coyfi\Cfdi;
 use Coyfi\Nodes\Address;
 use Coyfi\Nodes\CancellationStatus;
-use Coyfi\Nodes\Complement;
 use Coyfi\Nodes\Consignment;
 use Coyfi\Nodes\GlobalInformation;
 use Coyfi\Nodes\Good;
 use Coyfi\Nodes\InlandTransport;
 use Coyfi\Nodes\Item;
 use Coyfi\Nodes\Location;
+use Coyfi\Nodes\PaymentComplement;
+use Coyfi\Nodes\PaymentRelatedDocument;
 use Coyfi\Nodes\Receiver;
 use Coyfi\Nodes\RelatedCfdi;
 use Coyfi\Nodes\Sign;
@@ -27,15 +28,15 @@ trait HasFromArray
             ...isset($attributes['uuid']) ? ['uuid' => $attributes['uuid']] : [],
             ...isset($attributes['xml']) ? ['xml' => $attributes['xml']] : [],
             ...isset($attributes['total']) ? ['total' => $attributes['total']] : [],
+            ...isset($attributes['date']) ? ['date' => $attributes['date']] : [],
+            ...isset($attributes['status']) ? ['status' => $attributes['status']] : [],
 
             ...isset($attributes['invoice_number']) ? ['invoice_number' => $attributes['invoice_number']] : [],
             ...isset($attributes['invoice_prefix']) ? ['invoice_prefix' => $attributes['invoice_prefix']] : [],
             ...isset($attributes['cfdi_type']) ? ['cfdi_type' => $attributes['cfdi_type']] : [],
             ...isset($attributes['payment_method']) ? ['payment_method' => $attributes['payment_method']] : [],
             ...isset($attributes['payment_form']) ? ['payment_form' => $attributes['payment_form']] : [],
-            ...isset($attributes['payment_date']) ? ['payment_date' => $attributes['payment_date']] : [],
-            ...isset($attributes['payment_conditions']) ? ['payment_conditions' => $attributes['payment_conditions']] : [],
-            ...isset($attributes['payment_number']) ? ['payment_number' => $attributes['payment_number']] : [],
+            ...isset($attributes['payment_terms']) ? ['payment_terms' => $attributes['payment_terms']] : [],
         ]);
 
         if (isset($attributes['sign'])) {
@@ -69,10 +70,30 @@ trait HasFromArray
             }, $attributes['items']);
         }
 
-        if (isset($attributes['complements'])) {
-            $cfdi->complements = array_map(function ($complement) {
-                return new Complement($complement);
-            }, $attributes['complements']);
+        if (isset($attributes['payment_complements'])) {
+            $cfdi->payment_complements = array_map(function ($payment_complement) {
+                return new PaymentComplement([
+                    'payment_date' => $payment_complement['payment_date'],
+                    'payment_form' => $payment_complement['payment_form'],
+                    'currency' => $payment_complement['currency'],
+                    'exchange_rate' => $payment_complement['exchange_rate'],
+                    'transaction_number' => $payment_complement['transaction_number'] ?? null,
+                    'payer_account_rfc' => $payment_complement['payer_account_rfc'] ?? null,
+                    'payer_bank_name' => $payment_complement['payer_bank_name'] ?? null,
+                    'payer_account_number' => $payment_complement['payer_account_number'] ?? null,
+                    'beneficiary_account_rfc' => $payment_complement['beneficiary_account_rfc'] ?? null,
+                    'beneficiary_account_number' => $payment_complement['beneficiary_account_number'] ?? null,
+                    'related' => array_map(function ($related_document) {
+                        return new PaymentRelatedDocument([
+                            'amount' => $related_document['amount'],
+                            'uuid' => $related_document['uuid'],
+                            'payment_form' => $related_document['payment_form'],
+                            'remaining' => $related_document['remaining'],
+                            'payment_number' => $related_document['payment_number'],
+                        ]);
+                    }, $payment_complement['related']),
+                ]);
+            }, $attributes['payment_complements']);
         }
 
         if (isset($attributes['related'])) {
