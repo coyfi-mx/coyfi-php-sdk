@@ -11,4 +11,6 @@ class PaymentRelatedDocument extends CoyfiObject
     public $payment_form;
     public $remaining;
     public $payment_number;
+    public $tax_breakdown;
+    public array $taxes;
 }

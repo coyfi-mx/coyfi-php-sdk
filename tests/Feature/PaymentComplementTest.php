@@ -6,6 +6,7 @@ use Coyfi\Cfdi;
 use Coyfi\Nodes\Item;
 use Coyfi\Nodes\PaymentComplement;
 use Coyfi\Nodes\PaymentRelatedDocument;
+use Coyfi\Nodes\PaymentRelatedDocumentTax;
 use Coyfi\Nodes\Receiver;
 use DateTime;
 use DateTimeZone;
@@ -58,6 +59,14 @@ class PaymentComplementTest extends TestCase
                         'remaining' => 100,
                         'payment_form' => '01',
                         'payment_number' => 1,
+                        'tax_breakdown' => '02',
+                        'taxes' => [
+                            new PaymentRelatedDocumentTax([
+                                'rate' => 0.16,
+                                'type' => '002',
+                                'factor' => 'Tasa',
+                            ]),
+                        ],
                     ])],
                 ]),
             ],

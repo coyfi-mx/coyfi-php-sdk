@@ -13,6 +13,7 @@ use Coyfi\Nodes\Item;
 use Coyfi\Nodes\Location;
 use Coyfi\Nodes\PaymentComplement;
 use Coyfi\Nodes\PaymentRelatedDocument;
+use Coyfi\Nodes\PaymentRelatedDocumentTax;
 use Coyfi\Nodes\Receiver;
 use Coyfi\Nodes\RelatedCfdi;
 use Coyfi\Nodes\Sign;
@@ -84,13 +85,18 @@ trait HasFromArray
                     'beneficiary_account_rfc' => $payment_complement['beneficiary_account_rfc'] ?? null,
                     'beneficiary_account_number' => $payment_complement['beneficiary_account_number'] ?? null,
                     'related' => array_map(function ($related_document) {
-                        return new PaymentRelatedDocument([
+                        $paymentRelatedDocument = new PaymentRelatedDocument([
                             'amount' => $related_document['amount'],
                             'uuid' => $related_document['uuid'],
                             'payment_form' => $related_document['payment_form'],
                             'remaining' => $related_document['remaining'],
                             'payment_number' => $related_document['payment_number'],
+                            'tax_breakdown' => $related_document['tax_breakdown'],
                         ]);
+                        if (isset($related_document['taxes'])) {
+                            $paymentRelatedDocument->taxes = array_map(fn ($tax) => new PaymentRelatedDocumentTax($tax), $related_document['taxes']);
+                        }
+
                     }, $payment_complement['related']),
                 ]);
             }, $attributes['payment_complements']);
