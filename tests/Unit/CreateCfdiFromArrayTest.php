@@ -62,6 +62,14 @@ class CreateCfdiFromArrayTest extends TestCase
                         'remaining' => 100,
                         'payment_form' => '01',
                         'payment_number' => 1,
+                        'tax_breakdown' => '02',
+                        'taxes' => [
+                            [
+                                'rate' => 0.16,
+                                'type' => '002',
+                                'factor' => 'Tasa',
+                            ],
+                        ],
                     ]],
                 ],
             ],
