@@ -9,6 +9,7 @@ use Coyfi\Nodes\Consignment;
 use Coyfi\Nodes\GlobalInformation;
 use Coyfi\Nodes\Good;
 use Coyfi\Nodes\InlandTransport;
+use Coyfi\Nodes\InvoiceStatus;
 use Coyfi\Nodes\Item;
 use Coyfi\Nodes\Location;
 use Coyfi\Nodes\PaymentComplement;
@@ -17,7 +18,6 @@ use Coyfi\Nodes\PaymentRelatedDocumentTax;
 use Coyfi\Nodes\Receiver;
 use Coyfi\Nodes\RelatedCfdi;
 use Coyfi\Nodes\Sign;
-use Coyfi\Nodes\Status;
 use Coyfi\Nodes\Tax;
 use Coyfi\Nodes\TransportOperator;
 
@@ -152,8 +152,8 @@ trait HasFromArray
             $cfdi->cancellation_status = new CancellationStatus($attributes['cancellation_status']);
         }
 
-        if (isset($attributes['status'])) {
-            $cfdi->status = new Status($attributes['status']);
+        if (isset($attributes['invoice_status'])) {
+            $cfdi->invoice_status = new InvoiceStatus($attributes['invoice_status']);
         }
         if (isset($attributes['global_information'])) {
             $cfdi->global_information = new GlobalInformation($attributes['global_information']);
