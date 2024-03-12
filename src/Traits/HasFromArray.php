@@ -76,8 +76,8 @@ trait HasFromArray
                 return new PaymentComplement([
                     'payment_date' => $payment_complement['payment_date'],
                     'payment_form' => $payment_complement['payment_form'],
-                    'currency' => $payment_complement['currency'],
-                    'exchange_rate' => $payment_complement['exchange_rate'],
+                    'currency' => $payment_complement['currency'] ?? 'MXN',
+                    'exchange_rate' => $payment_complement['exchange_rate'] ?? 1,
                     'transaction_number' => $payment_complement['transaction_number'] ?? null,
                     'payer_account_rfc' => $payment_complement['payer_account_rfc'] ?? null,
                     'payer_bank_name' => $payment_complement['payer_bank_name'] ?? null,
@@ -86,6 +86,8 @@ trait HasFromArray
                     'beneficiary_account_number' => $payment_complement['beneficiary_account_number'] ?? null,
                     'related' => array_map(function ($related_document) {
                         $paymentRelatedDocument = new PaymentRelatedDocument([
+                            'invoice_number' => $related_document['invoice_number'] ?? null,
+                            'invoice_prefix' => $related_document['invoice_prefix'] ?? null,
                             'amount' => $related_document['amount'],
                             'uuid' => $related_document['uuid'],
                             'payment_form' => $related_document['payment_form'],
@@ -97,6 +99,7 @@ trait HasFromArray
                             $paymentRelatedDocument->taxes = array_map(fn ($tax) => new PaymentRelatedDocumentTax($tax), $related_document['taxes']);
                         }
 
+                        return $paymentRelatedDocument;
                     }, $payment_complement['related']),
                 ]);
             }, $attributes['payment_complements']);
