@@ -9,6 +9,7 @@ use Coyfi\Nodes\Consignment;
 use Coyfi\Nodes\GlobalInformation;
 use Coyfi\Nodes\Good;
 use Coyfi\Nodes\InlandTransport;
+use Coyfi\Nodes\InvoiceStatus;
 use Coyfi\Nodes\Item;
 use Coyfi\Nodes\Location;
 use Coyfi\Nodes\PaymentComplement;
@@ -17,7 +18,6 @@ use Coyfi\Nodes\PaymentRelatedDocumentTax;
 use Coyfi\Nodes\Receiver;
 use Coyfi\Nodes\RelatedCfdi;
 use Coyfi\Nodes\Sign;
-use Coyfi\Nodes\Status;
 use Coyfi\Nodes\Tax;
 use Coyfi\Nodes\TransportOperator;
 
@@ -76,8 +76,8 @@ trait HasFromArray
                 return new PaymentComplement([
                     'payment_date' => $payment_complement['payment_date'],
                     'payment_form' => $payment_complement['payment_form'],
-                    'currency' => $payment_complement['currency'],
-                    'exchange_rate' => $payment_complement['exchange_rate'],
+                    'currency' => $payment_complement['currency'] ?? 'MXN',
+                    'exchange_rate' => $payment_complement['exchange_rate'] ?? 1,
                     'transaction_number' => $payment_complement['transaction_number'] ?? null,
                     'payer_account_rfc' => $payment_complement['payer_account_rfc'] ?? null,
                     'payer_bank_name' => $payment_complement['payer_bank_name'] ?? null,
@@ -86,6 +86,8 @@ trait HasFromArray
                     'beneficiary_account_number' => $payment_complement['beneficiary_account_number'] ?? null,
                     'related' => array_map(function ($related_document) {
                         $paymentRelatedDocument = new PaymentRelatedDocument([
+                            'invoice_number' => $related_document['invoice_number'] ?? null,
+                            'invoice_prefix' => $related_document['invoice_prefix'] ?? null,
                             'amount' => $related_document['amount'],
                             'uuid' => $related_document['uuid'],
                             'payment_form' => $related_document['payment_form'],
@@ -97,6 +99,7 @@ trait HasFromArray
                             $paymentRelatedDocument->taxes = array_map(fn ($tax) => new PaymentRelatedDocumentTax($tax), $related_document['taxes']);
                         }
 
+                        return $paymentRelatedDocument;
                     }, $payment_complement['related']),
                 ]);
             }, $attributes['payment_complements']);
@@ -152,8 +155,8 @@ trait HasFromArray
             $cfdi->cancellation_status = new CancellationStatus($attributes['cancellation_status']);
         }
 
-        if (isset($attributes['status'])) {
-            $cfdi->status = new Status($attributes['status']);
+        if (isset($attributes['invoice_status'])) {
+            $cfdi->invoice_status = new InvoiceStatus($attributes['invoice_status']);
         }
         if (isset($attributes['global_information'])) {
             $cfdi->global_information = new GlobalInformation($attributes['global_information']);

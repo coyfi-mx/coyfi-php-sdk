@@ -57,6 +57,8 @@ class CreateCfdiFromArrayTest extends TestCase
                     'currency' => 'MXN',
                     'exchange_rate' => 1,
                     'related' => [[
+                        'invoice_number' => 'A',
+                        'invoice_prefix' => '123',
                         'amount' => 100,
                         'uuid' => '4E54D99A-597D-479D-A742-170B106096C0',
                         'remaining' => 100,
