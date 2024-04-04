@@ -65,7 +65,7 @@ class Cfdi extends CoyfiObject
     {
         return 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=' .
             $this->uuid . '&re=' . $this->sign->rfc . '&rr=' . $this->receiver->rfc .
-            '&fe=' . substr($this->sign->cfd, -8);
+            '&fe=' . substr($this->sign->cfd, -8) . '&tt=' . $this->total;
     }
 
     public function cancel($reason, $replacement_invoice_number = null)
