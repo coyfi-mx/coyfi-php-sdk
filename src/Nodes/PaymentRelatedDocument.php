@@ -9,6 +9,7 @@ class PaymentRelatedDocument extends CoyfiObject
     public $invoice_number;
     public $invoice_prefix;
     public $amount;
+    public $currency;
     public $uuid;
     public $payment_form;
     public $remaining;

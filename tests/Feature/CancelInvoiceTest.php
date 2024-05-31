@@ -13,8 +13,8 @@ class CancelInvoiceTest extends TestCase
     public function thatInvoiceCanBeCancelled(): void
     {
         $cfdi = Cfdi::fromArray([
-            'uuid' => '14162DEF-6CF5-5CFE-98F0-162D51FBFBB1',
-            'total' => 117.16,
+            'uuid' => 'FFA1DB2F-F8DB-56B6-B27A-0D0B4B2D6D8B',
+            'total' => '0.000000',
             'receiver' => [
                 'cfdi_use' => 'S01',
                 'business_name' => 'PUBLICO EN GENERAL',
@@ -34,8 +34,8 @@ class CancelInvoiceTest extends TestCase
     public function thatInvoiceStatusCanBeRetrieved(): void
     {
         $cfdi = Cfdi::fromArray([
-            'uuid' => '14162DEF-6CF5-5CFE-98F0-162D51FBFBB1',
-            'total' => 117.16,
+            'uuid' => 'FFA1DB2F-F8DB-56B6-B27A-0D0B4B2D6D8B',
+            'total' => '0.000000',
             'receiver' => [
                 'cfdi_use' => 'S01',
                 'business_name' => 'PUBLICO EN GENERAL',
