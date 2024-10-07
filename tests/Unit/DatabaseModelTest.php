@@ -3,10 +3,21 @@
 namespace Tests\Unit;
 
 use Coyfi\Models\Country;
+use Coyfi\Models\SatUnit;
 use Tests\TestCase;
 
 class DatabaseModelTest extends TestCase
 {
+    /**
+     * @test
+     */
+    public function aModelContainsAllCatalogRows(): void
+    {
+        $sat_units = SatUnit::query([], 0, 5000);
+
+        $this->assertEquals(count($sat_units), 2407);
+    }
+
     /**
      * @test
      */
