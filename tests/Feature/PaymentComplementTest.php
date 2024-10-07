@@ -54,6 +54,9 @@ class PaymentComplementTest extends TestCase
                     'currency' => 'MXN',
                     'exchange_rate' => 1,
                     'related' => [new PaymentRelatedDocument([
+                        'invoice_prefix' => 'A',
+                        'invoice_number' => 99,
+                        'currency' => 'MXN',
                         'amount' => 100,
                         'uuid' => '4E54D99A-597D-479D-A742-170B106096C0',
                         'remaining' => 100,
