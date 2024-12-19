@@ -13,7 +13,7 @@ class CancelInvoiceTest extends TestCase
     public function thatInvoiceCanBeCancelled(): void
     {
         $cfdi = Cfdi::fromArray([
-            'uuid' => 'FFA1DB2F-F8DB-56B6-B27A-0D0B4B2D6D8B',
+            'uuid' => 'C08C8D75-03F5-583B-85C3-02FDE8518632',
             'total' => '0.000000',
             'receiver' => [
                 'cfdi_use' => 'S01',
