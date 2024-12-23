@@ -1,0 +1,25 @@
+ mysqldump -u root -p coyfi \
+ cfdi_types \
+ cfdi_uses \
+ cities \
+ countries \
+ inland_transport_types \
+ item_types \
+ locations \
+ neighborhoods \
+ packaging_types \
+ payment_forms \
+ payment_methods \
+ person_types \
+ sat_units \
+ states \
+ tax_breakdown_types \
+ tax_regimes \
+ transport_license_types \
+ transport_operator_types  \
+ transport_types       \
+ zip_codes \
+> coyfi.sql
+mysql2sqlite coyfi.sql | sqlite3 coyfi.db
+zip ../database/coyfi.zip coyfi.db
+rm coyfi.db coyfi.sql

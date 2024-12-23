@@ -16,6 +16,10 @@
             "homepage": "https://github.com/gussrw"
         }
     ],
+    "bin": [
+        "bin/coyfi-reload-database",
+        "bin/coyfi-update-database"
+      ],
     "require": {
         "php": "^8.1"
     },
@@ -30,11 +34,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Coyfi\\Cfdi\\": "src/"
-        },
-        "files": [
-            "./helpers/env.php",
-            "./helpers/config.php"
-        ]
+            "Coyfi\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": [
+                "tests/"
+            ]
+        }
     }
 }
