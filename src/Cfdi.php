@@ -31,6 +31,8 @@ class Cfdi extends CoyfiObject
     public $payment_method;
     public $payment_terms;
 
+    public $pre_invoice = false;
+
     public Receiver $receiver;
     /**
      * @var array<Item>
@@ -50,15 +52,26 @@ class Cfdi extends CoyfiObject
 
     public function stamp()
     {
+        if ($this->pre_invoice) {
+            $response = ApiResource::post("cfdi/{$this->uuid}/stamp", $this->toArray());
+        } else {
+            $response = ApiResource::post('cfdi', $this->toArray());
+        }
+        $this->processResponse($response);
+
+    }
+
+    public function save()
+    {
+        $this->pre_invoice = true;
         $response = ApiResource::post('cfdi', $this->toArray());
-        $response['sign'] = new Sign($response['sign']);
+        $this->processResponse($response);
+    }
 
-        $datetime = new DateTime;
-        $datetime->setTimestamp(strtotime($response['date']));
-        $datetime->setTimezone(new DateTimeZone('America/Mexico_City'));
-        $response['date'] = $datetime->format('Y-m-d H:i:s');
-
-        $this->fill($response);
+    public function update()
+    {
+        $response = ApiResource::put("cfdi/{$this->uuid}", $this->toArray());
+        $this->processResponse($response);
     }
 
     public function getVerificationUrl()
@@ -110,5 +123,17 @@ class Cfdi extends CoyfiObject
     public function downloadReceiptXML()
     {
         return ApiResource::get("cfdi/{$this->uuid}/receipt-xml");
+    }
+
+    protected function processResponse($response)
+    {
+        $response['sign'] = new Sign($response['sign']);
+
+        $datetime = new DateTime;
+        $datetime->setTimestamp(strtotime($response['date']));
+        $datetime->setTimezone(new DateTimeZone('America/Mexico_City'));
+        $response['date'] = $datetime->format('Y-m-d H:i:s');
+
+        $this->fill($response);
     }
 }

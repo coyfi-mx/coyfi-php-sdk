@@ -51,6 +51,28 @@ class ApiResource
         }
     }
 
+    public static function put($uri, $json = [])
+    {
+        $apiResource = ApiResource::getInstance();
+        try {
+            $response = $apiResource->client->request(
+                'PUT',
+                $uri,
+                [
+                    'headers' => [
+                        'Content-Type' => 'application/json',
+                        'X-Requested-With' => 'XMLHttpRequest',
+                    ],
+                    'json' => [...$json, '_method' => 'PUT'],
+                ]
+            );
+
+            return $apiResource->processResponse($response);
+        } catch (ClientException $exception) {
+            throw new APIException($exception->getResponse(), $exception->getRequest());
+        }
+    }
+
     /**
      * @throws APIException
      */
