@@ -38,6 +38,7 @@ trait HasFromArray
             ...isset($attributes['payment_method']) ? ['payment_method' => $attributes['payment_method']] : [],
             ...isset($attributes['payment_form']) ? ['payment_form' => $attributes['payment_form']] : [],
             ...isset($attributes['payment_terms']) ? ['payment_terms' => $attributes['payment_terms']] : [],
+            ...isset($attributes['pre_invoice']) ? ['pre_invoice' => $attributes['pre_invoice']] : [],
         ]);
 
         if (isset($attributes['sign'])) {
