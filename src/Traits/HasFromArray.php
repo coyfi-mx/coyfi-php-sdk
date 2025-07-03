@@ -41,7 +41,7 @@ trait HasFromArray
         ];
 
         $cfdi = new Cfdi($attributes);
-        
+
         if (isset($attributes['sign'])) {
             $cfdi->sign = new Sign($attributes['sign']);
         }
