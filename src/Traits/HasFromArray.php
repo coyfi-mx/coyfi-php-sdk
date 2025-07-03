@@ -25,22 +25,30 @@ trait HasFromArray
 {
     public static function fromArray($attributes)
     {
-        $valid_fields = [
-            $attributes['uuid'] ? ['uuid' => $attributes['uuid']] : [],
-            $attributes['xml'] ? ['xml' => $attributes['xml']] : [],
-            $attributes['total'] ? ['total' => $attributes['total']] : [],
-            $attributes['date'] ? ['date' => $attributes['date']] : [],
-            $attributes['status'] ? ['status' => $attributes['status']] : [],
-            $attributes['invoice_number'] ? ['invoice_number' => $attributes['invoice_number']] : [],
-            $attributes['invoice_prefix'] ? ['invoice_prefix' => $attributes['invoice_prefix']] : [],
-            $attributes['cfdi_type'] ? ['cfdi_type' => $attributes['cfdi_type']] : [],
-            $attributes['payment_method'] ? ['payment_method' => $attributes['payment_method']] : [],
-            $attributes['payment_form'] ? ['payment_form' => $attributes['payment_form']] : [],
-            $attributes['payment_terms'] ? ['payment_terms' => $attributes['payment_terms']] : [],
-
+        $validAttributes = [
+            'uuid',
+            'xml',
+            'total',
+            'date',
+            'status',
+            'invoice_number',
+            'invoice_prefix',
+            'cfdi_type',
+            'payment_method',
+            'payment_form',
+            'payment_terms',
+            'pre_invoice',
         ];
 
-        $cfdi = new Cfdi($attributes);
+        $cfdi = new Cfdi;
+
+        foreach ($attributes as $key => $value) {
+            if (in_array($key, $validAttributes) && $value !== null) {
+                $cfdi->$key = $value;
+            } else {
+                $cfdi->$key = null;
+            }
+        }
 
         if (isset($attributes['sign'])) {
             $cfdi->sign = new Sign($attributes['sign']);
