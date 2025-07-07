@@ -13,7 +13,7 @@ class Subscription extends CoyfiObject
 
     public static function retrieve()
     {
-        $account = ApiResource::get('account');
+        $account = ApiResource::get('account') ?? [];
 
         return new self($account['activeSubscription']);
     }
