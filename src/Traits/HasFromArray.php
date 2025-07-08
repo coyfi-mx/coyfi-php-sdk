@@ -25,21 +25,21 @@ trait HasFromArray
 {
     public static function fromArray($attributes)
     {
-        $cfdi = new Cfdi([
-            ...isset($attributes['uuid']) ? ['uuid' => $attributes['uuid']] : [],
-            ...isset($attributes['xml']) ? ['xml' => $attributes['xml']] : [],
-            ...isset($attributes['total']) ? ['total' => $attributes['total']] : [],
-            ...isset($attributes['date']) ? ['date' => $attributes['date']] : [],
-            ...isset($attributes['status']) ? ['status' => $attributes['status']] : [],
+        $cfdi = new Cfdi(array_merge(
+            isset($attributes['uuid']) ? ['uuid' => $attributes['uuid']] : [],
+            isset($attributes['xml']) ? ['xml' => $attributes['xml']] : [],
+            isset($attributes['total']) ? ['total' => $attributes['total']] : [],
+            isset($attributes['date']) ? ['date' => $attributes['date']] : [],
+            isset($attributes['status']) ? ['status' => $attributes['status']] : [],
 
-            ...isset($attributes['invoice_number']) ? ['invoice_number' => $attributes['invoice_number']] : [],
-            ...isset($attributes['invoice_prefix']) ? ['invoice_prefix' => $attributes['invoice_prefix']] : [],
-            ...isset($attributes['cfdi_type']) ? ['cfdi_type' => $attributes['cfdi_type']] : [],
-            ...isset($attributes['payment_method']) ? ['payment_method' => $attributes['payment_method']] : [],
-            ...isset($attributes['payment_form']) ? ['payment_form' => $attributes['payment_form']] : [],
-            ...isset($attributes['payment_terms']) ? ['payment_terms' => $attributes['payment_terms']] : [],
-            ...isset($attributes['pre_invoice']) ? ['pre_invoice' => $attributes['pre_invoice']] : [],
-        ]);
+            isset($attributes['invoice_number']) ? ['invoice_number' => $attributes['invoice_number']] : [],
+            isset($attributes['invoice_prefix']) ? ['invoice_prefix' => $attributes['invoice_prefix']] : [],
+            isset($attributes['cfdi_type']) ? ['cfdi_type' => $attributes['cfdi_type']] : [],
+            isset($attributes['payment_method']) ? ['payment_method' => $attributes['payment_method']] : [],
+            isset($attributes['payment_form']) ? ['payment_form' => $attributes['payment_form']] : [],
+            isset($attributes['payment_terms']) ? ['payment_terms' => $attributes['payment_terms']] : [],
+            isset($attributes['pre_invoice']) ? ['pre_invoice' => $attributes['pre_invoice']] : []
+        ));
 
         if (isset($attributes['sign'])) {
             $cfdi->sign = new Sign($attributes['sign']);

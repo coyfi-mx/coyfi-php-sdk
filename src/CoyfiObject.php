@@ -12,7 +12,7 @@ abstract class CoyfiObject
         $this->fill($attributes);
     }
 
-    public static function create($attributes): static
+    public static function create($attributes)
     {
         $object = new static;
         $object->fill($attributes);
